@@ -25,7 +25,7 @@ export const fetchWeatherEpic = (action$, store) =>
     .mergeMap(action => {
       const state = store.getState();
 
-      return Observable.ajax.getJSON(`http://localhost:8099/rest/v1/weather?city=${state.city}&series=${state.series}`)
+      return Observable.ajax.getJSON(`http://localhost:8099/rest/v1/weather?city=${state.city._id}&series=${state.series.value}`)
         .map(fetchWeatherFulfilled);
     });
 

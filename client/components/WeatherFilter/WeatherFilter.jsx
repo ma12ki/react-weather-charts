@@ -1,9 +1,11 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import {IconButton, Menu, MenuItem} from 'react-mdl';
 
 import {fetchWeather, fetchCities, chooseCity, chooseSeries} from '../../redux/modules/weather';
 import Dropdown from '../Dropdown';
 import Button from '../Button';
+import s from './Weather.css';
 
 const seriesOptions = [
   {text: 'Avg temp', value: 'tempDay'},
@@ -30,22 +32,44 @@ class WeatherFilter extends React.PureComponent {
     this.props.fetchCities();
   }
 
-  onCityChange(event) {
-    this.props.chooseCity(event.target.value);
+  onCityChange(city) {
+    this.props.chooseCity(city);
   }
 
-  onSeriesChange(event) {
-    this.props.chooseSeries(event.target.value);
+  onSeriesChange(series) {
+    this.props.chooseSeries(series);
   }
 
   render() {
     const getDataBtnDisabled = !this.props.city || !this.props.series || this.props.isFetching;
     const btnLabel = this.props.isFetching ? 'Fetching...' : 'Get data';
 
+    const citiesMenuItems = this.props.cities.map((option) => {
+      return <MenuItem key={option._id} onClick={() => this.onCityChange(option)}>{option.name}</MenuItem>;
+    });
+    const selectedCity = this.props.city ? this.props.city.name : <i style={{color: 'gray'}}>City</i>;
+
+    const seriesMenuItems = seriesOptions.map((option) => {
+      return <MenuItem key={option.value} onClick={() => this.onSeriesChange(option)}>{option.text}</MenuItem>;
+    });
+    const selectedSeries = this.props.series ? this.props.series.text : <i style={{color: 'gray'}}>Series</i>;
+
     return (<div>
-      // this would be an autocomplete
-      <Dropdown items={this.props.cities} onChange={this.onCityChange} />
-      <Dropdown items={seriesOptions} onChange={this.onSeriesChange} />
+      <div className={s.menu}>
+          <IconButton name="more_vert" id="menu-cities" />
+          <Menu target="menu-cities">
+              {citiesMenuItems}
+          </Menu>
+          {selectedCity}
+      </div>
+
+      <div className={s.menu}>
+          <IconButton name="more_vert" id="menu-series" />
+          <Menu target="menu-series">
+              {seriesMenuItems}
+          </Menu>
+          {selectedSeries}
+      </div>
       <Button type="raised" disabled={getDataBtnDisabled} onClick={this.props.fetchWeather}>{btnLabel}</Button>
     </div>);
   }
@@ -54,21 +78,10 @@ class WeatherFilter extends React.PureComponent {
 const WeatherFilterContainer = connect(mapStateToProps, {fetchWeather, fetchCities, chooseCity, chooseSeries})(WeatherFilter);
 
 function mapStateToProps(state) {
-  const cities = state.cities ? mapCitiesToOptions(state.cities) : [];
-
   return {
     ...state,
-    cities
+    cities: state.cities || []
   };
-}
-
-function mapCitiesToOptions(cities) {
-  return cities.map((city) => {
-    return {
-      text: city.name,
-      value: city._id
-    };
-  });
 }
 
 export {
