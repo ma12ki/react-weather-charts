@@ -1,30 +1,31 @@
 import React, { PropTypes } from 'react';
 import ReactHighcharts from 'react-highcharts';
 import {connect} from 'react-redux';
+import moment from 'moment';
 
 //import config from './sample-config';
 
 const baseConfig = {
-    title: {
-        text: 'Daily Average Temperature',
-        x: -20 //center
-    },
+    // title: {
+    //     text: 'Daily Average Temperature',
+    //     x: -20 //center
+    // },
     // xAxis: {
     //     categories: getXAxis()
     // },
     yAxis: {
-        title: {
-            text: 'Temperature (°C)'
-        },
+        // title: {
+        //     text: 'Temperature (°C)'
+        // },
         plotLines: [{
             value: 0,
             width: 1,
             color: '#808080'
         }]
     },
-    tooltip: {
-        valueSuffix: '°C'
-    },
+    // tooltip: {
+    //     valueSuffix: '°C'
+    // },
     legend: {
         layout: 'vertical',
         align: 'right',
@@ -37,7 +38,15 @@ const baseConfig = {
 
 class Chart extends React.PureComponent {
   getConfig() {
-    return baseConfig;
+    return {
+      ...baseConfig,
+      xAxis: {
+        categories: this.props.weatherData.map(item => moment(item.x).format('DD.MM.YYYY'))
+      },
+      series: [{
+        data: this.props.weatherData.map(item => item.y)
+      }]
+    };
   }
 
   render() {

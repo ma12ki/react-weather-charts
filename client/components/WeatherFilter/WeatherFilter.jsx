@@ -6,7 +6,7 @@ import Dropdown from '../Dropdown';
 import Button from '../Button';
 
 const seriesOptions = [
-  {text: 'Average temp', value: 'avgTemp'}
+  {text: 'Average temp', value: 'tempDay'}
 ];
 
 class WeatherFilter extends React.PureComponent {
@@ -46,8 +46,6 @@ const WeatherFilterContainer = connect(mapStateToProps, {fetchWeather, fetchCiti
 
 function mapStateToProps(state) {
   const cities = state.cities ? mapCitiesToOptions(state.cities) : [];
-
-  console.log(state);
 
   return {
     ...state,
