@@ -7,7 +7,7 @@ import moment from 'moment';
 
 const baseConfig = {
     // title: {
-    //     text: 'Daily Average Temperature',
+    //     text: '',
     //     x: -20 //center
     // },
     // xAxis: {
