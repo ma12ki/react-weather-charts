@@ -11,7 +11,7 @@ async function get(queryParams) {
     conditions,
     null,
     {limit: 10}
-  ).sort({name: 1}).lean();
+  ).lean();
 
   return cities;
 }
