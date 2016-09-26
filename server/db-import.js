@@ -45,7 +45,16 @@ function mapWeatherToModel(weather) {
   return {
     cityId: weather.cityId,
     date: new Date(weather.dt * 1000),
-    tempDay: kelvinToCelsius(weather.temp.day)
+    tempDay: kelvinToCelsius(weather.temp.day),
+    tempMin: kelvinToCelsius(weather.temp.min),
+    tempMax: kelvinToCelsius(weather.temp.max),
+    tempNight: kelvinToCelsius(weather.temp.night),
+    tempEve: kelvinToCelsius(weather.temp.eve),
+    tempMorn: kelvinToCelsius(weather.temp.morn),
+    pressure: weather.pressure,
+    humidity: weather.humidity,
+    speed: weather.speed,
+    clouds: weather.clouds
   };
 }
 

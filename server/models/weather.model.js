@@ -10,7 +10,16 @@ const WeatherSchema = new Schema({
     type: Date,
     required: true
   },
-  tempDay: Number
+  tempDay: Number,
+  tempMin: Number,
+  tempMax: Number,
+  tempNight: Number,
+  tempEve: Number,
+  tempMorn: Number,
+  pressure: Number,
+  humidity: Number,
+  speed: Number,
+  clouds: Number
 });
 
 WeatherSchema.index({ cityId: 1, type: 1 });

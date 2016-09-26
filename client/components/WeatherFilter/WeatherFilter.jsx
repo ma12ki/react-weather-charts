@@ -6,7 +6,16 @@ import Dropdown from '../Dropdown';
 import Button from '../Button';
 
 const seriesOptions = [
-  {text: 'Average temp', value: 'tempDay'}
+  {text: 'Avg temp', value: 'tempDay'},
+  {text: 'Min temp', value: 'tempMin'},
+  {text: 'Max temp', value: 'tempMax'},
+  {text: 'Night temp', value: 'tempNight'},
+  {text: 'Eve temp', value: 'tempEve'},
+  {text: 'Morn temp', value: 'tempMorn'},
+  {text: 'Pressure', value: 'pressure'},
+  {text: 'Humidity', value: 'humidity'},
+  {text: 'Wind speed', value: 'speed'},
+  {text: 'Clouds', value: 'clouds'}
 ];
 
 class WeatherFilter extends React.PureComponent {

@@ -31,7 +31,6 @@ class HomePage extends React.Component {
   render() {
     return (
       <Layout className={s.content}>
-        <div dangerouslySetInnerHTML={{ __html: html }} />
         <WeatherFilterContainer />
         <ChartContainer />
       </Layout>
